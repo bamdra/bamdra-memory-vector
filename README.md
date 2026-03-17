@@ -1,54 +1,83 @@
 # bamdra-memory-vector
 
-`bamdra-memory-vector` is the optional semantic retrieval plugin for the Bamdra OpenClaw memory suite.
+The local knowledge and semantic recall layer for the Bamdra suite.
 
-It adds lightweight vector-style recall on top of `bamdra-openclaw-memory` without turning the whole stack into a heavy external vector-database deployment.
+It can run independently, and it becomes most powerful when paired with `bamdra-openclaw-memory`.
 
-## What It Does
+[中文文档](./README.zh-CN.md)
 
-- writes Markdown-readable memory artifacts to local storage
-- builds a lightweight local semantic index
-- supports scoped retrieval for the current user
-- returns top-k semantic matches for recall-heavy prompts
-- keeps private user memory and shared knowledge separated
+## What it does
 
-## Open Source Contents
+`bamdra-memory-vector` turns local Markdown into a maintainable knowledge base.
 
-This repository already includes the real source code for the current open-source version.
+It indexes:
 
-- source entrypoint:
-  [src/index.ts](/Users/wood/workspace/macmini-openclaw/openclaw-enhanced/bamdra-memory-vector/src/index.ts)
-- plugin manifest:
-  [openclaw.plugin.json](/Users/wood/workspace/macmini-openclaw/openclaw-enhanced/bamdra-memory-vector/openclaw.plugin.json)
-- package metadata:
-  [package.json](/Users/wood/workspace/macmini-openclaw/openclaw-enhanced/bamdra-memory-vector/package.json)
+- `knowledge/`
+- `docs/`
+- `notes/`
+- `ideas/`
 
-The repository currently looks small because the first public version is intentionally a compact, single-entry plugin.
+and helps OpenClaw search that local knowledge before falling back to the web.
 
-## Current Runtime Model
+## Why it matters
 
-- Markdown root:
-  `~/.openclaw/memory/vector/markdown/`
-- local index:
-  `~/.openclaw/memory/vector/index.json`
+The weakest part of many memory systems is the knowledge layer:
 
-This first version exposes a lightweight local vector-style index interface and keeps the integration surface ready for later LanceDB-backed evolution.
+- knowledge becomes opaque
+- humans stop editing it
+- web search gets used too often
+- latency and token cost go up
 
-## Product Positioning
+This plugin closes that gap by keeping the knowledge base local, readable, and editable.
 
-`bamdra-memory-vector` is not meant to replace `bamdra-openclaw-memory`.
+## Best-practice layout
 
-- `bamdra-openclaw-memory` is continuity-first
-- `bamdra-memory-vector` is recall enhancement
+```text
+private/
+  knowledge/
+  docs/
+  notes/
+  ideas/
 
-Together they provide:
-
-- durable continuity across long sessions
-- Markdown-readable memory artifacts
-- lightweight semantic recall without extra infrastructure
-
-## Build
-
-```bash
-pnpm run bundle
+shared/
+  knowledge/
+  docs/
+  notes/
+  ideas/
 ```
+
+## Best-practice storage
+
+Keep the index local, but point Markdown roots at a synced editor-friendly folder.
+
+```json
+{
+  "enabled": true,
+  "privateMarkdownRoot": "~/Documents/Obsidian/MyVault/openclaw/private",
+  "sharedMarkdownRoot": "~/Documents/Obsidian/MyVault/openclaw/shared",
+  "indexPath": "~/.openclaw/memory/vector/index.json"
+}
+```
+
+That works especially well with:
+
+- Obsidian
+- iCloud Drive
+- Git-synced repositories
+- Syncthing workspaces
+
+## What it unlocks
+
+With `bamdra-openclaw-memory`:
+
+- old work can be found through fuzzy recall
+- local docs can enter the answer path without prompt bloat
+
+With `bamdra-user-bind`:
+
+- private knowledge stays aligned with the correct user boundary
+
+## Repository
+
+- [GitHub organization](https://github.com/bamdra)
+- [Repository](https://github.com/bamdra/bamdra-memory-vector)
