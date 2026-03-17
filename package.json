@@ -1,0 +1,59 @@
+{
+  "name": "@bamdra/bamdra-memory-vector",
+  "version": "0.1.0",
+  "description": "Lightweight local semantic retrieval enhancement for the Bamdra OpenClaw memory suite.",
+  "license": "MIT",
+  "homepage": "https://www.bamdra.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bamdra/bamdra-memory-vector.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bamdra/bamdra-memory-vector/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "openclaw.plugin.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "openclaw",
+    "openclaw-plugin",
+    "vector-search",
+    "semantic-search",
+    "memory",
+    "markdown"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "bundle": "node ../bamdra-openclaw-memory/scripts/run-local-bin.mjs tsup",
+    "prepublishOnly": "pnpm run bundle"
+  },
+  "openclaw": {
+    "id": "bamdra-memory-vector",
+    "type": "tool",
+    "manifest": "./openclaw.plugin.json",
+    "extensions": [
+      "./dist/index.js"
+    ]
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^24.5.2"
+  }
+}

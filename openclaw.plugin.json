@@ -1,0 +1,12 @@
+{
+  "id": "bamdra-memory-vector",
+  "type": "tool",
+  "name": "Bamdra Memory Vector",
+  "description": "Local vector-style semantic retrieval enhancement for Bamdra memory.",
+  "version": "0.1.0",
+  "main": "./dist/index.js",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": true
+  }
+}
