@@ -12,6 +12,11 @@ Install directly:
 openclaw plugins install @bamdra/bamdra-memory-vector
 ```
 
+Release package:
+
+- GitHub Releases: https://github.com/bamdra/bamdra-memory-vector/releases
+- You can also build a local release bundle with `pnpm package:release`
+
 [中文文档](./README.zh-CN.md)
 
 ## What it does
@@ -93,3 +98,4 @@ With `bamdra-user-bind`:
 
 - [GitHub organization](https://github.com/bamdra)
 - [Repository](https://github.com/bamdra/bamdra-memory-vector)
+- [Releases](https://github.com/bamdra/bamdra-memory-vector/releases)

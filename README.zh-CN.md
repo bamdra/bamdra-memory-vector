@@ -12,6 +12,11 @@ Bamdra 套件中的本地知识库与语义召回层。
 openclaw plugins install @bamdra/bamdra-memory-vector
 ```
 
+发布包下载：
+
+- GitHub Releases: https://github.com/bamdra/bamdra-memory-vector/releases
+- 本地也可以执行 `pnpm package:release` 生成独立发布包
+
 [English README](./README.md)
 
 ## 它做什么
@@ -93,3 +98,4 @@ shared/
 
 - [GitHub 首页](https://github.com/bamdra)
 - [仓库地址](https://github.com/bamdra/bamdra-memory-vector)
+- [Releases](https://github.com/bamdra/bamdra-memory-vector/releases)

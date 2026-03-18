@@ -34,7 +34,8 @@
   },
   "scripts": {
     "bundle": "node ../bamdra-openclaw-memory/scripts/run-local-bin.mjs tsup",
-    "prepublishOnly": "pnpm run bundle"
+    "prepublishOnly": "pnpm run bundle",
+    "package:release": "node ./scripts/package-release.mjs"
   },
   "openclaw": {
     "id": "bamdra-memory-vector",
