@@ -1,8 +1,16 @@
 # bamdra-memory-vector
 
+![Bamdra Animated Logo](./docs/assets/bamdra-logo-animated.svg)
+
 The local knowledge and semantic recall layer for the Bamdra suite.
 
 It can run independently, and it becomes most powerful when paired with `bamdra-openclaw-memory`.
+
+Install directly:
+
+```bash
+openclaw plugins install @bamdra/bamdra-memory-vector
+```
 
 [中文文档](./README.zh-CN.md)
 
@@ -65,6 +73,10 @@ That works especially well with:
 - iCloud Drive
 - Git-synced repositories
 - Syncthing workspaces
+
+## Architecture
+
+![Bamdra Suite Architecture](./docs/assets/architecture-technical-en.svg)
 
 ## What it unlocks
 

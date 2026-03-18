@@ -1,8 +1,16 @@
 # bamdra-memory-vector
 
+![Bamdra Animated Logo](./docs/assets/bamdra-logo-animated.svg)
+
 Bamdra 套件中的本地知识库与语义召回层。
 
 它可以独立运行，和 `bamdra-openclaw-memory` 配合时效果最好。
+
+单独安装：
+
+```bash
+openclaw plugins install @bamdra/bamdra-memory-vector
+```
 
 [English README](./README.md)
 
@@ -65,6 +73,10 @@ shared/
 - iCloud Drive
 - Git 同步仓库
 - Syncthing 工作区
+
+## 架构图
+
+![Bamdra 套件架构图](./docs/assets/architecture-technical-zh.svg)
 
 ## 它能解锁什么
 
