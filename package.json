@@ -1,6 +1,6 @@
 {
   "name": "@bamdra/bamdra-memory-vector",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Lightweight local semantic retrieval enhancement for the Bamdra OpenClaw memory suite.",
   "license": "MIT",
   "homepage": "https://www.bamdra.com",
@@ -33,7 +33,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "bundle": "node ../bamdra-openclaw-memory/scripts/run-local-bin.mjs tsup",
+    "bundle": "node ../bamdra-openclaw-memory/scripts/run-local-bin.mjs tsup && node ./scripts/prepare-plugin-dist.mjs",
     "prepublishOnly": "pnpm run bundle",
     "package:release": "node ./scripts/package-release.mjs"
   },
