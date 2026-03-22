@@ -30,6 +30,8 @@ It indexes:
 - `notes/`
 - `ideas/`
 
+`ideas/` is a generic example name. If your vault uses a different folder such as `06_Interest/`, point the Markdown root at that structure or keep both names as valid knowledge buckets.
+
 and helps OpenClaw search that local knowledge before falling back to the web.
 
 ## Why it matters
@@ -51,12 +53,14 @@ private/
   docs/
   notes/
   ideas/
+  06_Interest/
 
 shared/
   knowledge/
   docs/
   notes/
   ideas/
+  06_Interest/
 ```
 
 ## Best-practice storage

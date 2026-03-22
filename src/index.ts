@@ -11,7 +11,7 @@ const PLUGIN_ID = "bamdra-memory-vector";
 const SKILL_ID = "bamdra-memory-vector-operator";
 const SEARCH_TOOL_NAME = "bamdra_memory_vector_search";
 const REINDEX_TOOL_NAME = "bamdra_memory_vector_reindex";
-const DEFAULT_LIBRARY_DIRS = ["knowledge", "docs", "notes", "ideas"] as const;
+const DEFAULT_LIBRARY_DIRS = ["knowledge", "docs", "notes", "ideas", "06_Interest"] as const;
 const RUNTIME_DIR = "_runtime";
 const SUPPORTED_TEXT_EXTENSIONS = new Set([
   ".md",

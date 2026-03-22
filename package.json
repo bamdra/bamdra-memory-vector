@@ -1,6 +1,6 @@
 {
   "name": "@bamdra/bamdra-memory-vector",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Lightweight local semantic retrieval enhancement for the Bamdra OpenClaw memory suite.",
   "license": "MIT",
   "homepage": "https://www.bamdra.com",

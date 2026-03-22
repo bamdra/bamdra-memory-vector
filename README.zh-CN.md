@@ -30,6 +30,8 @@ openclaw plugins install @bamdra/bamdra-memory-vector
 - `notes/`
 - `ideas/`
 
+其中 `ideas/` 只是通用示例名。如果你的 Obsidian 实际目录叫 `06_Interest/`，也完全可以按那个结构来放，插件同样可以把它当成灵感知识桶。
+
 并尽量让 OpenClaw 在上网之前先查本地知识。
 
 ## 为什么重要
@@ -51,12 +53,14 @@ private/
   docs/
   notes/
   ideas/
+  06_Interest/
 
 shared/
   knowledge/
   docs/
   notes/
   ideas/
+  06_Interest/
 ```
 
 ## 最佳实践存储方式
