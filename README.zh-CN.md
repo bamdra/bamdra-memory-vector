@@ -6,6 +6,8 @@ Bamdra 套件中的本地知识库与语义召回层。
 
 它可以独立运行，和 `bamdra-openclaw-memory` 配合时效果最好。
 
+已验证适配 OpenClaw `v2026.3.23`。
+
 单独安装：
 
 ```bash
@@ -33,6 +35,11 @@ openclaw plugins install @bamdra/bamdra-memory-vector
 其中 `ideas/` 只是通用示例名。如果你的 Obsidian 实际目录叫 `06_Interest/`，也完全可以按那个结构来放，插件同样可以把它当成灵感知识桶。
 
 并尽量让 OpenClaw 在上网之前先查本地知识。
+
+这轮兼容性修复还包括：
+
+- 在 OpenClaw `v2026.3.23` 下通过 npm 单独安装时，会自动补齐 `plugins.installs` 元数据
+- 使用 `~/.openclaw/...` 的向量存储路径现在会正确解析到当前用户目录，而不是被当成字面目录名
 
 ## 为什么重要
 

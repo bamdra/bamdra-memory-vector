@@ -80,6 +80,18 @@ interface IndexedDocument {
   text: string;
 }
 
+interface PluginInstallMetadata {
+  source: string;
+  spec: string;
+  installPath: string;
+  version: string;
+  resolvedName: string;
+  resolvedVersion: string;
+  resolvedSpec: string;
+  resolvedAt: string;
+  installedAt: string;
+}
+
 interface ChunkRecord {
   title: string;
   text: string;
@@ -301,15 +313,28 @@ function exposeVectorApi(runtime: LocalVectorIndex): void {
 
 function normalizeConfig(input: Partial<MemoryVectorConfig> | undefined): MemoryVectorConfig {
   const root = join(homedir(), ".openclaw", "memory", "vector");
-  const markdownRoot = input?.markdownRoot ?? join(root, "markdown");
+  const markdownRoot = expandHomePath(input?.markdownRoot) ?? join(root, "markdown");
   return {
     enabled: input?.enabled ?? true,
     markdownRoot,
-    privateMarkdownRoot: input?.privateMarkdownRoot ?? join(markdownRoot, "private"),
-    sharedMarkdownRoot: input?.sharedMarkdownRoot ?? join(markdownRoot, "shared"),
-    indexPath: input?.indexPath ?? join(root, "index.json"),
+    privateMarkdownRoot: expandHomePath(input?.privateMarkdownRoot) ?? join(markdownRoot, "private"),
+    sharedMarkdownRoot: expandHomePath(input?.sharedMarkdownRoot) ?? join(markdownRoot, "shared"),
+    indexPath: expandHomePath(input?.indexPath) ?? join(root, "index.json"),
     dimensions: input?.dimensions ?? 64,
   };
+}
+
+function expandHomePath(value: string | undefined): string | null {
+  if (!value) {
+    return null;
+  }
+  if (value === "~") {
+    return homedir();
+  }
+  if (value.startsWith("~/")) {
+    return join(homedir(), value.slice(2));
+  }
+  return value;
 }
 
 function bootstrapOpenClawHost(): void {
@@ -334,17 +359,67 @@ function bootstrapOpenClawHost(): void {
 
   const original = readFileSync(configPath, "utf8");
   const config = JSON.parse(original) as Record<string, unknown>;
-  const changed = ensureHostConfig(config);
+  const changed = ensureHostConfig(config, packageRoot);
   if (!changed) {
     return;
   }
   writeFileSync(configPath, `${JSON.stringify(config, null, 2)}\n`, "utf8");
 }
 
-function ensureHostConfig(config: Record<string, unknown>): boolean {
+function readPluginInstallMetadata(pluginId: string, packageRoot: string, installPath: string): PluginInstallMetadata | null {
+  try {
+    const pkg = JSON.parse(readFileSync(join(packageRoot, "package.json"), "utf8")) as {
+      name?: string;
+      version?: string;
+    };
+    const packageName = typeof pkg.name === "string" ? pkg.name : pluginId;
+    const version = typeof pkg.version === "string" ? pkg.version : "0.0.0";
+    const now = new Date().toISOString();
+    return {
+      source: "npm",
+      spec: packageName,
+      installPath,
+      version,
+      resolvedName: packageName,
+      resolvedVersion: version,
+      resolvedSpec: `${packageName}@${version}`,
+      resolvedAt: now,
+      installedAt: now,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function ensureInstallMetadata(
+  installs: Record<string, unknown>,
+  pluginId: string,
+  metadata: PluginInstallMetadata | null,
+): boolean {
+  if (!metadata) {
+    return false;
+  }
+  const current = installs[pluginId];
+  if (current && typeof current === "object" && !Array.isArray(current)) {
+    const install = current as Record<string, unknown>;
+    let changed = false;
+    for (const [key, value] of Object.entries(metadata)) {
+      if (typeof install[key] !== "string" || install[key] === "") {
+        install[key] = value;
+        changed = true;
+      }
+    }
+    return changed;
+  }
+  installs[pluginId] = metadata;
+  return true;
+}
+
+function ensureHostConfig(config: Record<string, unknown>, packageRoot: string): boolean {
   let changed = false;
   const plugins = ensureObject(config, "plugins");
   const entries = ensureObject(plugins, "entries");
+  const installs = ensureObject(plugins, "installs");
   const load = ensureObject(plugins, "load");
   const tools = ensureObject(config, "tools");
   const skills = ensureObject(config, "skills");
@@ -356,6 +431,11 @@ function ensureHostConfig(config: Record<string, unknown>): boolean {
   changed = ensureArrayIncludes(plugins, "allow", PLUGIN_ID) || changed;
   changed = ensureArrayIncludes(load, "paths", join(homedir(), ".openclaw", "extensions")) || changed;
   changed = ensureArrayIncludes(skillsLoad, "extraDirs", join(homedir(), ".openclaw", "skills")) || changed;
+  changed = ensureInstallMetadata(
+    installs,
+    PLUGIN_ID,
+    readPluginInstallMetadata(PLUGIN_ID, packageRoot, join(homedir(), ".openclaw", "extensions", PLUGIN_ID)),
+  ) || changed;
   changed = ensureArrayIncludes(tools, "allow", SEARCH_TOOL_NAME) || changed;
   changed = ensureArrayIncludes(tools, "allow", REINDEX_TOOL_NAME) || changed;
 

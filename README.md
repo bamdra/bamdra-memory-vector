@@ -6,6 +6,8 @@ The local knowledge and semantic recall layer for the Bamdra suite.
 
 It can run independently, and it becomes most powerful when paired with `bamdra-openclaw-memory`.
 
+Tested with OpenClaw `v2026.3.23`.
+
 Install directly:
 
 ```bash
@@ -33,6 +35,11 @@ It indexes:
 `ideas/` is a generic example name. If your vault uses a different folder such as `06_Interest/`, point the Markdown root at that structure or keep both names as valid knowledge buckets.
 
 and helps OpenClaw search that local knowledge before falling back to the web.
+
+Recent compatibility improvements:
+
+- npm installs on OpenClaw `v2026.3.23` now backfill `plugins.installs` metadata for the standalone vector plugin
+- vector storage paths that use `~/.openclaw/...` are now resolved against the active user home instead of being treated as literal directories
 
 ## Why it matters
 
