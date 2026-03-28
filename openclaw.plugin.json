@@ -3,7 +3,7 @@
   "type": "tool",
   "name": "Bamdra Memory Vector",
   "description": "Local vector-style semantic retrieval enhancement for Bamdra memory.",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "main": "./dist/index.js",
   "skills": ["./skills"],
   "configSchema": {

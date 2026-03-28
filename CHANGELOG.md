@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.1.15 - 2026-03-29
+
+### Fixed
+
+- copied the bundled vector operator skill into `dist/skills/` during release preparation so npm installs and manual release bundles expose the same operator guidance
+- added release-packaging regression coverage for the bundled SKILL payload so vector packaging changes cannot accidentally ship without the operator skill
+
 ## v0.1.14 - 2026-03-27
 
 ### Added
